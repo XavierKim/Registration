@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 맨첫줄에는 주석처리 불가능 여기부터 가능-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.tacademy.terrykim.ui.MainActivity"
+    android:orientation="vertical"
+    android:weightSum="15">
+    <!-- weightSum은 자식들 weight들의 총합
+         layoutweigt가 0이면 해당 요소는 포함하지 않고 나머지들은 가중치들 나눔-->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="페이스북 계정으로 로그인"
+        android:textColor="#ffffff"
+        android:id="@+id/button"
+        android:layout_weight="1"/>
+
+    <Button
+        android:text="구글 계정으로 로그인"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:id="@+id/button2"
+        android:layout_weight="1"/>
+
+
+    <TextView
+        android:text="----------------------------------------   또는   ----------------------------------------"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/textView3"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="이메일 주소"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_weight="1"/>
+
+    <EditText
+        android:layout_below="@+id/editText"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="비밀번호"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/mail"
+            android:layout_above="@+id/editText2"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imageView" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/padlock"
+            android:layout_below="@+id/editText"
+            android:layout_alignParentRight="true"
+            android:id="@+id/imageView2" />
+    </RelativeLayout>
+
+    <CheckBox
+        android:text="비밀번호 저장"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="전화번호 사용 - 비밀번호가 생각나지 않으세요?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/textView4"
+        android:layout_weight="1"/>
+
+    <Button
+        android:text="로그인"
+        android:background="#ff0000"
+        android:textColor="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="-------------------------------------------------------------------------------------------"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:gravity="center"
+        android:layout_weight="1"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:text="에이비앤비 계정이 없으세요?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"/>
+
+        <Button
+            android:text="회원가입"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#ff0000"
+            android:background="#ffffff"
+            android:id="@+id/button4" />
+
+    </RelativeLayout>
+</LinearLayout>
