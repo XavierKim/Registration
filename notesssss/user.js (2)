@@ -1,0 +1,116 @@
+/*
+ * GET users listing.
+ */
+var mysql = require("mysql");
+var dbConfig = {
+		  // 로컬 서버
+//		  host     : 'localhost',
+//		  user     : 'root',
+//		  password : '1234',
+//		  database : 'taca'
+		  // 아마존 서버
+		  host     : 'ddt.cph7ebvzv973.ap-northeast-2.rds.amazonaws.com',
+		  user     : 'ddt_tester',
+		  password : '12341234',
+		  database : 'android'
+};
+
+// exports:=> 모둘화가 된다=>require()를 한 코드에서 사용가능
+exports.list = function(req, res){
+	res.send("respond with a resource");
+};
+// exports.name = "kkk";
+
+// ======================================================================
+// get : http://127.0.0.1:3000/login?userEmail=a@a.com&userPwd=1234
+exports.login = function(req, res){
+	// 1. 요청 파라미터 획득
+	console.log(req.query.userEmail, req.query.userPwd);
+	// 2. sql 쿼리
+		// 2-1. 연결 문자열 설정
+	var connection = mysql.createConnection(dbConfig);
+		// 2-2.연결->쿼리->결과->닫기
+	connection.connect(function(){
+		// 2-3. 쿼리
+		connection.query(
+			'select * from users where userEmail=? and userPwd=?;',
+			[req.query.userEmail, req.query.userPwd],
+			function (error, results, fields) // 콜백함수=>비동기처리
+			{
+			  if (error) throw error;
+			  console.log('The solution is: ', results);
+			  // 2-4. 연결 닫기
+			  connection.end();
+			  
+			  // 3. 응답 데이터 구성및 응답 -> json으로 하고 싶다. 회원정보 전송
+			  // 아이디비번과 일치하는 회원정보를 json 형식으로 보내고 싶다
+			  // results => Json 문법을 따르는 String 데이터 변환
+			  // 객체 => json string 
+			  // JSON.stringify (객체 => json string)
+			  // JSON.parse     (객체 <= json string)
+			  // 데이터가 존재하면
+			  if( results.length> 0) 
+				  res.send(JSON.stringify(results));
+			  // 데이터가 없으면 
+			  else
+				  res.send("{}");
+				
+			}
+		);
+	});
+	
+};
+
+// 회원가입 함수
+exports.join = function(req, res){
+	console.log(req.body); // post 방식은 req.body로 획득
+	var connection = mysql.createConnection(dbConfig);
+	connection.connect(function(){
+		connection.query(
+			"insert into 	users 	(userEmail, userPwd, hp, os, model, uuid, token)" +
+			" values (?, ?, ?, ?, ?, ?, ?);",
+			[   
+				req.body.user.userEmail,
+				req.body.user.userPwd,
+				req.body.user.hp,
+				req.body.user.os,
+				req.body.user.model,
+				req.body.user.uuid,
+				req.body.user.token
+			],
+			function (error, results, fields) // 콜백함수=>비동기처리
+			{
+				connection.end();
+				if (error){
+					res.send('{"code":-1, "msg":"'+error+'"}');
+				}else{
+					if( results.affectedRows > 0  ){
+						res.send('{"code":1, "msg":"가입 성공"}');
+					}else{
+						res.send('{"code":-1, "msg":"가입 실패"}');
+					}
+				}		  
+			  
+			}
+		);
+	});	
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
